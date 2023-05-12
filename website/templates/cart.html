@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>Your Cart</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product_id, product in products.items() %}
+          <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ product['name'] }}</td>
+            <td>${{ product['price'] }}</td>
+            <td>
+              <form action="{{ url_for('views.cart') }}" method="POST">
+                <div class="input-group">
+                  <input type="number" name="quantity" value="{{ product['quantity'] }}" min="1" class="form-control" aria-label="Quantity" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Update</button>
+                  </div>
+                </div>
+              </form>
+            </td>
+            <td>
+              <form action="{{ url_for('views.remove_from_cart', product_id=product_id) }}" method="POST">
+                <button class="btn btn-danger" type="submit">Remove</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="lead">Total Price: ${{ total_price }}</p>
+    <a href="{{ url_for('views.home') }}" class="btn btn-primary">Continue Shopping</a>
+  </div>
+{% endblock %}

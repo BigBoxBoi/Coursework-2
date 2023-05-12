@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %} 
+
+{% block content%}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-1">
+        <img src="{{ url_for('static', filename='Assets/cheapdogs.gif') }}" class="rounded left-align">
+      </div>
+      <div class="col-md-11">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for product in products %}
+          <div class="col mb-4">
+            <div class="card card-fixed">
+              <div class="card-body">
+                <img class="card-img-top" src="{{ url_for('static', filename='Assets/' + product['name'] + '.png') }}">
+                <h5 class="card-title">{{ product['name'] }}</h5>
+                <p class="card-text"><strong>Price: £{{ product['price'] }}</strong></p>
+                <button class="btn btn-outline-dark toggle-description-btn" data-toggle="collapse" data-target="#product-description-{{ loop.index }}">Show Description</button>
+                <div id="product-description-{{ loop.index }}" class="collapse product-description">
+                  <p>{{ product['description'] }}</p>
+                  <p>This product has a carbon footprint of {{ product['carbon_footprint'] }} KG of CO2.</p>
+                </div>
+                {% if current_user.is_authenticated %}
+                <form action="{{ url_for('views.add_to_cart', product_id=product['product_id']) }}" method="POST">
+                    <input type="hidden" name="product_id" value="{{ product['product_id'] }}">
+                    <button class="btn btn-outline-dark add-to-cart" type="submit">Add to Cart</button>
+                </form>
+                {% else %}
+                <button class="btn btn-outline-dark" disabled>Add to Cart</button>
+                <span class="badge bg-warning text-danger">Please login or sign-up to add items to cart</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="{{ url_for('static', filename='js/descriptiontoggle.js') }}"></script>
+
+{% endblock %}

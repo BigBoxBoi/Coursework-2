@@ -1,0 +1,9 @@
+.product-description {
+  max-height: 200px; /* adjust the max-height to fit  needs */
+  overflow-y: scroll;/*Adds scrollbar if heigh exceeded*/
+}
+img.left-align {
+    display: block;
+    margin-right: 0;
+    margin-left: -600%;
+}

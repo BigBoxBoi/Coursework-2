@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Checkout{% endblock %}
+{% block page %}
+<div class="container py-4 py-xl-5" style="font-family: 'RamaGothicEW01';">
+<div class="row mb-5">
+<div class="col-md-8 col-xl-6 text-center mx-auto" style="margin-bottom: 40px">
+<h2 style="font-family: RamaGothicEW01;font-weight: bold;letter-spacing: 2px;font-size: 48px;color: #ff2e00;margin-bottom: 0px;">CHECKOUT</h2>
+</div>
+<form method="POST" id="checkoutForm" action="">
+<div style="width:90%;position: relative;margin: auto">
+<div style='height: 80px;margin:10px 30px;'>
+<div class="d-flex" style="width: 80%;margin:auto">
+<div style="margin-left:100px;height: 60px;width: auto;padding: 5px">
+<div style="margin-top: 14px;font-size: 24px">
+CREDIT CARD NUMBER
+</div>
+</div>
+<div style="margin-left: auto;margin-right:100px;margin-top:14px;height:60px">
+<input id="ccn" class='input-ccn form-control' style="width:200px;text-align: center;margin-right: 60px;margin-top:10px" type="tel" placeholder="XXXX XXXX XXXX XXXX"/>
+</div>
+<div class="btn-clear hidden-right">clear</div>
+</div>
+</div>
+<div style='height: 80px;margin:20px 30px;'>
+<div class="d-flex" style="width: 80%;margin:auto">
+<div style="height: 60px;margin-left:150px;width: auto;padding: 5px">
+<div style="margin-top: 14px;font-size: 24px">
+EXPIRY DATE
+</div>
+</div>
+<div style="margin-left: auto;margin-right:150px;margin-top:14px;height:60px">
+<input id="exp" class='input-exp form-control' style="width:100px;text-align: center;margin-right: 60px;margin-top:10px" type="text" placeholder="MM/YY"/>
+</div>
+</div>
+</div>
+<div style='height: 80px;margin:20px 30px;'>
+<div class="d-flex" style="width: 80%;margin:auto">
+<div style="height: 60px;margin-left:160px;width: auto;padding: 5px">
+<div style="margin-top: 14px;font-size: 24px">
+CVC / CCV
+</div>
+</div>
+<div style="margin-left: auto;margin-right:150px;margin-top:14px;height:60px">
+<input id="cvc" class='input-cvc form-control' style="width:100px;text-align: center;margin-right: 60px;margin-top:10px" type="number" placeholder="XXX"/>
+</div>
+</div>
+</div>
+<div style="margin:10px;text-align: center">
+{% if user.is_authenticated %}
+<button class="btn btn-danger checkout-button" type="submit">SUBMIT</button>
+<input class="hidden" type="text" name="user" id="user" value="user"/>
+{% else %}
+<button class="btn btn-danger checkout-button" type="submit">SUBMIT</button>
+<input class="hidden" type="text" name="user" id="user" value="anon"/>
+{% endif %}
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="../static/js/checkout.js"></script>
+{% endblock %}
